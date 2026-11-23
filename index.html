@@ -44,5 +44,32 @@ isProcessing = true;
 
     scanner.render(onScanSuccess);
   </script>
+  <iframe
+  id="gasBridge"
+  src="https://script.google.com/a/macros/yoshikawa.ed.jp/s/AKfycbwCfdxcoopYAnMQdrlqEVKgRjUozwNxT7gqEgu_4r8Kab3mZCXj0Xhs_2-aKM86_Qib/exec"
+  style="display:none;"
+></iframe>
+
+<script>
+  const gasBridge = document.getElementById("gasBridge");
+
+  const GAS_ORIGIN = new URL(gasBridge.src).origin;
+
+  window.addEventListener("message", function(event) {
+    if (event.origin !== GAS_ORIGIN) return;
+    if (event.source !== gasBridge.contentWindow) return;
+    if (!event.data || event.data.type !== "PONG") return;
+
+    document.getElementById("result").textContent =
+      "GASとの接続に成功しました！";
+  });
+
+  gasBridge.addEventListener("load", function() {
+    gasBridge.contentWindow.postMessage(
+      { type: "PING" },
+      GAS_ORIGIN
+    );
+  });
+</script>
 </body>
 </html>
