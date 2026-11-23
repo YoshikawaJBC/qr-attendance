@@ -56,6 +56,7 @@ isProcessing = true;
   const GAS_ORIGIN = new URL(gasBridge.src).origin;
 
   window.addEventListener("message", function(event) {
+    console.log("メッセージの送信元:", event.origin);
     if (event.origin !== GAS_ORIGIN) return;
     if (event.source !== gasBridge.contentWindow) return;
     if (!event.data || event.data.type !== "PONG") return;
