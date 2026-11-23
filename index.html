@@ -16,11 +16,14 @@
   <script>
 let isProcessing = false;
     function onScanSuccess(decodedText) {
-  const parts = decodedText.split("|");
+if (isProcessing) return;
+isProcessing = true;
+      const parts = decodedText.split("|");
 
   if (parts.length !== 2) {
     document.getElementById("result").textContent =
       "QRコードの形式が正しくありません。";
+  isProcessing = false;
     return;
   }
 
