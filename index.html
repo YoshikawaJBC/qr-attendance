@@ -14,6 +14,7 @@
   <h3 id="result">カメラを起動してください。</h3>
 
   <script>
+let isProcessing = false;
     function onScanSuccess(decodedText) {
   const parts = decodedText.split("|");
 
